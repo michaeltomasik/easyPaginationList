@@ -1,54 +1,102 @@
 import React from 'react'
 import TableSupplier from '../../../components/Table'
 import PaginationAdvanced from '../../../components/PaginationAdvanced'
-import axios from 'axios'
+import OptionBar from '../../../components/OptionBar'
 
 export const Supplier = React.createClass({
   getInitialState: function () {
-    // const { supplier } = this.props
-    // console.log('INITIAL', this.props)
+    const { supplier } = this.props
+    console.log('INITIAL', this.props)
     // const payments = supplier.payments ? supplier.payments : []
     // const pagination = supplier.pagination ? supplier.pagination : {}
     return {
-      payments: [],
-      pagination: {}
+      payments: supplier.payments,
+      pagination: supplier.pagination,
+      active: 1,
+      rating: 0,
+      query: ''
     }
   },
 
   componentWillMount : function () {
-    const data = axios.get('http://test-api.kuria.tshdev.io/?rating=3&page=2')
-    .then((result) => {
-      console.log(result);
-      const { payments, pagination } = result.data
+    this.props.getSuppliers();
+  },
+
+  componentWillReceiveProps : function (nextProps) {
+    //this.getData()
+    console.log('componentWillReceiveProps',this.state, nextProps);
+    const { supplier } = this.state
+    if( nextProps.supplier.pagination !== this.state.pagination ||
+        nextProps.supplier.payments !== this.state.payments) {
+      console.log('component WESZLO !!!');
       this.setState({
-        payments: payments,
-        pagination: pagination
-      })
-    })
+        payments: nextProps.supplier.payments,
+        pagination: nextProps.supplier.pagination
+      });
+    }
+  },
+
+  handlePageChanged: function (newPage) {
+    console.log(newPage)
+    this.setState({ active : newPage },
+      () => { this.updateTableRows() }
+    )
+  },
+
+  handleChangeSearch (event) {
+    this.setState({query: event.target.value});
+  },
+
+  handleChangeRating (event) {
+    this.setState({rating: event.target.value});
+  },
+
+  handleOnClickSearch () {
+    this.setState({ active : 1 },
+      () => { this.updateTableRows() }
+    )
+  },
+
+  handleOnClickReset () {
+    this.setState({
+      active : 1,
+      query: '',
+      rating: 0
+    },
+      () => { this.updateTableRows() }
+    )
+  },
+
+  updateTableRows() {
+    const { active, rating, query } = this.state;
+    this.props.getSuppliers(active-1, rating, query)
   },
 
   render () {
     const { supplier } = this.props;
-    const { payments, pagination } = this.state;
+    const { payments, pagination, active, query, rating } = this.state;
     console.log(supplier, this.state, 'supplier');
+    const showPagination = pagination.current === 0 ? null :
+      <PaginationAdvanced
+        active={active}
+        handlePageChanged={this.handlePageChanged}
+        items={pagination.to}
+        max={pagination.total} />
+
     return(
       <div style={{ margin: '0 auto' }} >
         <h2>Where  your money goes</h2>
         <p>Payments made by Chichester District Council to individual suppliers with a value over £500 made within October.</p>
         <hr />
-        <input type='text' placeholder='Search suppliers' />
-        <select>
-          <option value="none">Select pound rating</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-        <button> Reset </button>
-        <button> Search </button>
+        <OptionBar
+          query={query}
+          rating={rating}
+          handleChangeSearch={this.handleChangeSearch}
+          handleChangeRating={this.handleChangeRating}
+          handleOnClickSearch={this.handleOnClickSearch}
+          handleOnClickReset={this.handleOnClickReset} />
         <TableSupplier payments={payments} pagination={pagination} />
-        <Pagination />
+        {showPagination}
       </div>
     )
   }

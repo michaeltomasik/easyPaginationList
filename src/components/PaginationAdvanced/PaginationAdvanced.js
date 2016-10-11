@@ -17,15 +17,20 @@ export const PaginationAdvanced = React.createClass({
     },
 
     render: function() {
-        return (
-           <Pagination
-          prev
-          next
-          boundaryLinks
-          items={20}
-          maxButtons={5}
-          activePage={1}
-          onSelect={this.handlePageChanged} />);
+      const { handlePageChanged, active, items, max } = this.props;
+      console.log(items,'items');
+      return (
+        <Pagination
+        prev
+        next
+        boundaryLinks
+        ellipsis
+        items={max}
+        maxButtons={5}
+        activePage={active}
+        onSelect={handlePageChanged}
+        bsClass={classes.pagintion} />
+      );
     }
 });
 

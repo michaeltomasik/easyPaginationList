@@ -1,1 +1,80 @@
-Table.scss
+table {
+  width: 100%;
+
+    border-radius: 10px;
+
+  thead {
+    font-size:16px;
+    font-weight:400;
+    text-align:left;
+    padding:20px;
+
+    .headerRow {
+      border: 1px solid #ccc;
+      th {
+        font-family: 'Open Sans', sans-serif;
+        font-weight:300;
+        color:#5f6062;
+        font-size:13px;
+        padding:20px;
+        background: #EAECED;
+        font-weight: bold;
+        text-align: center;
+
+      }
+
+      .left {
+        text-align: left;
+      }
+
+    }
+  }
+}
+
+tbody {
+  tr {
+    td {
+      font-family: 'Open Sans', sans-serif;
+      font-weight:300;
+      color:#5f6062;
+      font-size:13px;
+      padding:20px;
+      border: 1px solid #ccc;
+    }
+  }
+
+}
+
+tbody tr:nth-child(2n) {
+  background:#F7F7F7;
+}
+
+tbody tr:last-child {
+  &:first-child {
+    border-bottom-left-radius: 5px;
+  }
+  &:last-child {
+    border-bottom-right-radius: 5px;
+  }
+}
+
+.supplier {
+  width: 60%;
+  p {
+    float: left;
+    margin: 0;
+  }
+}
+
+.rate {
+  width: 20%;
+}
+
+ref {
+  width: 10%;
+}
+
+value {
+  width: 10%;
+}
+

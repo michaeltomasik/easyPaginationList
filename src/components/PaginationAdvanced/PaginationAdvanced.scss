@@ -1,4 +1,14 @@
-.pagination{
-  display: inline;
-  color: red;
+.pagination {
+  li a{
+    margin: 5px;
+    color: #626262;
+    border-color: #666666;
+    background: linear-gradient(white, #EAEAEA);
+    font-weight: bold;
+    border-radius: 5px;
+  }
+  .active a {
+    color: #EAEAEA;
+    background: radial-gradient(#666666, #5b5b5b);
+  }
 }

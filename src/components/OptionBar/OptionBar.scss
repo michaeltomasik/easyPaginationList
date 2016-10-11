@@ -1,0 +1,49 @@
+.option-bar {
+  padding-bottom:10px;
+  float:left;
+  width:100%;
+
+  div {
+
+    display: inline;
+  }
+
+  .button {
+    background-image: -webkit-linear-gradient(top, #fafafa, #bdbdbd);
+    background-image: -moz-linear-gradient(top, #fafafa, #bdbdbd);
+    background-image: -ms-linear-gradient(top, #fafafa, #bdbdbd);
+    background-image: -o-linear-gradient(top, #fafafa, #bdbdbd);
+    background-image: linear-gradient(to bottom, #fafafa, #bdbdbd);
+    -webkit-border-radius: 3;
+    -moz-border-radius: 3;
+    border-radius: 3px;
+    color: #4d4d4d;
+    font-size: 19px;
+    padding: 5px 10px 5px 10px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .button:hover {
+    background: #e0e0e0;
+    background-image: -webkit-linear-gradient(top, #e0e0e0, #ebeef0);
+    background-image: -moz-linear-gradient(top, #e0e0e0, #ebeef0);
+    background-image: -ms-linear-gradient(top, #e0e0e0, #ebeef0);
+    background-image: -o-linear-gradient(top, #e0e0e0, #ebeef0);
+    background-image: linear-gradient(to bottom, #e0e0e0, #ebeef0);
+    text-decoration: none;
+  }
+  .search-input {
+    input {
+
+    width:40%;
+    margin:10px;
+    }
+  }
+  .rating {
+    width:20%;
+    padding: 5px;
+    background: grey;
+  }
+
+}

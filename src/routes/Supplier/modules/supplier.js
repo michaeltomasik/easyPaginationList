@@ -6,11 +6,16 @@ export const RECIVE_SUPPLIERS = 'RECIVE_SUPPLIERS'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const getSuppliers = () => {
+export const getSuppliers = (active, rating = 0, query = '') => {
+  console.log('GETSUPPLIERS', active);
+  let url = 'http://test-api.kuria.tshdev.io/?page='+active
+  url = rating !== 0 ? (url+'&rating='+rating) : url
+  url = query !== '' ? (url+'&query='+query) : url
 
+  console.log(url,'URL');
   return (dispatch, getState) => {
     return new Promise((resolve) => {
-      return fetch('http://test-api.kuria.tshdev.io/?rating=3&page=2')
+      return fetch(url)
         .then(response => response.json())
         .then(json => dispatch(reciveSuppliers(json)))
         .then(() => resolve())
@@ -24,7 +29,6 @@ export function reciveSuppliers (json) {
     json
   }
 }
-
 
 export const actions = {
   reciveSuppliers,
