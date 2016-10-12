@@ -13,7 +13,7 @@
     -moz-border-radius: 3;
     border-radius: 3px;
     font-size: 15px;
-    padding: 7px 10px 7px 10px;
+    padding: 7px 15px 7px 15px;
     text-decoration: none;
     cursor: pointer;
     font-weight: bold;
@@ -68,12 +68,19 @@
     input {
       width:40%;
       margin:10px;
+      height: 25px;
+      margin: 10 auto;
+      border: none;
+      border:solid 1px #ccc;
+      border-radius: 5px;
+      padding: 10px;
     }
   }
 
   .rating {
     padding: 7px;
     background: #EAECED;
+    border-radius: 5px;
     select {
       width:20%;
       border-radius: 5px;

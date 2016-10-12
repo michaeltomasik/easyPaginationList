@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { Modal } from 'react-bootstrap'
 import Rater from 'react-rater'
 
-import Pound from '../Rating/Pound'
+import Pound from '../Pound'
 import './ModalSupplier.scss'
 
 export const ModalSuppler = ({ payment, showModal = false, closeModal }) => {
@@ -12,14 +12,20 @@ export const ModalSuppler = ({ payment, showModal = false, closeModal }) => {
       onHide={closeModal}>
       <div className='modal-supplier'>
         <h1>{payment.payment_supplier}</h1>
-        <h4>Pound Rating</h4>
-        <Rater interactive={false} rating={Number(payment.payment_cost_rating)}>
-          <Pound />
-        </Rater>
-        <h4>REFERENCE</h4>
-        <p>{payment.payment_ref}</p>
-        <h4>VALUE</h4>
-        <p>{payment.payment_amount}</p>
+        <div className='row'>
+          <h4>Pound Rating:</h4>
+          <Rater interactive={false} rating={Number(payment.payment_cost_rating)}>
+            <Pound />
+          </Rater>
+        </div>
+        <div className='row'>
+          <h4>Reference:</h4>
+          <p>{payment.payment_ref}</p>
+        </div>
+        <div className='row'>
+          <h4>Value:</h4>
+          <p>{'£' + payment.payment_amount}</p>
+        </div>
       </div>
     </Modal>
   )

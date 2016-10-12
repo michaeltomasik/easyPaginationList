@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import Rater from 'react-rater'
 
-import Pound from '../Rating/Pound'
+import Pound from '../Pound'
 import './Table.scss'
 
 export const Table = ({ payments, openModal }) => {

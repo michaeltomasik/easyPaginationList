@@ -11,7 +11,7 @@ $grey-color: #666666;
     border-radius: 50%;
     border:1px solid $grey-color;
 
-    p {
+    span {
       font-size: 1.4em;
       color: $grey-color;
       font-weight: bold;
@@ -21,7 +21,7 @@ $grey-color: #666666;
   .is-active {
     background: linear-gradient(#62BFEA, #4E98DD);
 
-    p {
+    span {
       color: white;
     }
   }

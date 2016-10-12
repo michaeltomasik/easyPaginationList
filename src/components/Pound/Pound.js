@@ -14,7 +14,7 @@ export default class Pound extends Component {
           .join(' ')
     return (
       <div className={className}>
-        <p>£</p>
+        <span>£</span>
       </div>
     )
   }
