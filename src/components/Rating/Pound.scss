@@ -1,22 +1,26 @@
 $grey-color: #666666;
+
 .react-rater {
   display: flex;
-
   justify-content: space-around;
+
   div {
     background: linear-gradient(#FAFAFA, #DCDEDE);
     height: 28px;
     width: 28px;
     border-radius: 50%;
     border:1px solid $grey-color;
+
     p {
       font-size: 1.4em;
       color: $grey-color;
       font-weight: bold;
     }
   }
+
   .is-active {
     background: linear-gradient(#62BFEA, #4E98DD);
+
     p {
       color: white;
     }

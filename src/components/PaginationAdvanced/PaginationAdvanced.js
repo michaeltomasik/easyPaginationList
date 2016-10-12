@@ -1,37 +1,30 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { Pagination } from 'react-bootstrap'
 import classes from './PaginationAdvanced.scss'
 
-export const PaginationAdvanced = React.createClass({
-    getInitialState: function () {
-        return {
-            total:        11,
-            current:      7,
-            visiblePages: 4
-        };
-    },
+export const PaginationAdvanced = (
+  {
+    handlePageChanged,
+    active,
+    max
+  }) => (
 
-    handlePageChanged: function ( newPage ) {
-      console.log(newPage)
-        this.setState({ current : newPage });
-    },
+  <Pagination
+    prev
+    next
+    boundaryLinks
+    ellipsis
+    items={max}
+    maxButtons={5}
+    activePage={active}
+    onSelect={handlePageChanged}
+    bsClass={classes.pagintion} />
+)
 
-    render: function() {
-      const { handlePageChanged, active, items, max } = this.props;
-      console.log(items,'items');
-      return (
-        <Pagination
-        prev
-        next
-        boundaryLinks
-        ellipsis
-        items={max}
-        maxButtons={5}
-        activePage={active}
-        onSelect={handlePageChanged}
-        bsClass={classes.pagintion} />
-      );
-    }
-});
+PaginationAdvanced.propTypes = {
+  handlePageChanged: PropTypes.func.isRequired,
+  active: PropTypes.number.isRequired,
+  max: PropTypes.number
+}
 
 export default PaginationAdvanced

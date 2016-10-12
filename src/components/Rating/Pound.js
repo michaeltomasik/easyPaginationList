@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-import classes from './Pound.scss'
+import './Pound.scss'
+
 export default class Pound extends Component {
   render () {
     let nameMap = {

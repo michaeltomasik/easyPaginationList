@@ -1,54 +1,59 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
+
 import TableSupplier from '../../../components/Table'
 import PaginationAdvanced from '../../../components/PaginationAdvanced'
 import OptionBar from '../../../components/OptionBar'
+import ModalSupplier from '../../../components/ModalSupplier'
 
 export const Supplier = React.createClass({
+  propTypes: {
+    supplier: PropTypes.shape({
+      pagination: PropTypes.object.isRequired,
+      payments: PropTypes.array.isRequired
+    }),
+    getSuppliers : React.PropTypes.func.isRequired
+  },
+
   getInitialState: function () {
     const { supplier } = this.props
-    console.log('INITIAL', this.props)
-    // const payments = supplier.payments ? supplier.payments : []
-    // const pagination = supplier.pagination ? supplier.pagination : {}
+
     return {
       payments: supplier.payments,
       pagination: supplier.pagination,
       active: 1,
       rating: 0,
-      query: ''
+      query: '',
+      showModal: false,
+      openedPayment: {}
     }
   },
 
   componentWillMount : function () {
-    this.props.getSuppliers();
+    this.props.getSuppliers()
   },
 
   componentWillReceiveProps : function (nextProps) {
-    //this.getData()
-    console.log('componentWillReceiveProps',this.state, nextProps);
-    const { supplier } = this.state
-    if( nextProps.supplier.pagination !== this.state.pagination ||
+    if (nextProps.supplier.pagination !== this.state.pagination ||
         nextProps.supplier.payments !== this.state.payments) {
-      console.log('component WESZLO !!!');
       this.setState({
         payments: nextProps.supplier.payments,
         pagination: nextProps.supplier.pagination
-      });
+      })
     }
   },
 
   handlePageChanged: function (newPage) {
-    console.log(newPage)
     this.setState({ active : newPage },
       () => { this.updateTableRows() }
     )
   },
 
   handleChangeSearch (event) {
-    this.setState({query: event.target.value});
+    this.setState({ query: event.target.value })
   },
 
   handleChangeRating (event) {
-    this.setState({rating: event.target.value});
+    this.setState({ rating: event.target.value })
   },
 
   handleOnClickSearch () {
@@ -67,26 +72,36 @@ export const Supplier = React.createClass({
     )
   },
 
-  updateTableRows() {
-    const { active, rating, query } = this.state;
-    this.props.getSuppliers(active-1, rating, query)
+  updateTableRows () {
+    const { active, rating, query } = this.state
+    this.props.getSuppliers(active - 1, rating, query)
+  },
+
+  closeModal () {
+    this.setState({ showModal: false })
+  },
+
+  openModal (payment) {
+    this.setState({
+      showModal: true,
+      openedPayment: payment
+    })
   },
 
   render () {
-    const { supplier } = this.props;
-    const { payments, pagination, active, query, rating } = this.state;
-    console.log(supplier, this.state, 'supplier');
-    const showPagination = pagination.current === 0 ? null :
-      <PaginationAdvanced
-        active={active}
-        handlePageChanged={this.handlePageChanged}
-        items={pagination.to}
-        max={pagination.total} />
+    const { payments, pagination, active, query, rating, showModal, openedPayment } = this.state
 
-    return(
-      <div style={{ margin: '0 auto' }} >
-        <h2>Where  your money goes</h2>
-        <p>Payments made by Chichester District Council to individual suppliers with a value over £500 made within October.</p>
+    const showPagination = pagination.current === 0 ? null
+    : <PaginationAdvanced
+      active={active}
+      handlePageChanged={this.handlePageChanged}
+      max={pagination.total} />
+
+    return (
+      <div>
+        <p style={{ color:'#337ab7', fontSize: '60px' }}>Where  your money goes</p>
+        <p style={{ fontSize: '20px' }}>Payments made by Chichester District Council to individual
+        suppliers with a value over £500 made within October.</p>
         <hr />
         <OptionBar
           query={query}
@@ -95,17 +110,17 @@ export const Supplier = React.createClass({
           handleChangeRating={this.handleChangeRating}
           handleOnClickSearch={this.handleOnClickSearch}
           handleOnClickReset={this.handleOnClickReset} />
-        <TableSupplier payments={payments} pagination={pagination} />
+        <TableSupplier
+          payments={payments}
+          openModal={this.openModal} />
         {showPagination}
+        <ModalSupplier
+          payment={openedPayment}
+          showModal={showModal}
+          closeModal={this.closeModal} />
       </div>
     )
   }
 })
-
-// FindSupplier.propTypes = {
-//   counter     : React.PropTypes.number.isRequired,
-//   doubleAsync : React.PropTypes.func.isRequired,
-//   increment   : React.PropTypes.func.isRequired
-// }
 
 export default Supplier

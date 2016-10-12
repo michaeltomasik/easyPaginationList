@@ -3,22 +3,27 @@
 // ------------------------------------
 export const GET_SUPPLIER = 'GET_SUPPLIER'
 export const RECIVE_SUPPLIERS = 'RECIVE_SUPPLIERS'
+
 // ------------------------------------
 // Actions
 // ------------------------------------
 export const getSuppliers = (active, rating = 0, query = '') => {
-  console.log('GETSUPPLIERS', active);
-  let url = 'http://test-api.kuria.tshdev.io/?page='+active
-  url = rating !== 0 ? (url+'&rating='+rating) : url
-  url = query !== '' ? (url+'&query='+query) : url
+  let url = 'http://test-api.kuria.tshdev.io/?page=' + active
+  url = rating !== 0 ? (url + '&rating=' + rating) : url
+  url = query !== '' ? (url + '&query=' + query) : url
 
-  console.log(url,'URL');
   return (dispatch, getState) => {
     return new Promise((resolve) => {
       return fetch(url)
         .then(response => response.json())
         .then(json => dispatch(reciveSuppliers(json)))
-        .then(() => resolve())
+        .then(() => resolve()).catch(function (e) {
+          console.log('Error :' + e)
+          dispatch(reciveSuppliers({
+            pagination: {},
+            payments: []
+          }))
+        })
     })
   }
 }
@@ -40,7 +45,6 @@ export const actions = {
 // ------------------------------------
 const ACTION_HANDLERS = {
   [RECIVE_SUPPLIERS] : (state, action) => {
-    console.log('TRURURURUURURU', action.json)
     return {
       ...state,
       ...action.json
@@ -55,6 +59,7 @@ const initialState = {
   pagination: {},
   payments: []
 }
+
 export default function counterReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
 
