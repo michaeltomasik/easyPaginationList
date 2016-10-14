@@ -20,16 +20,18 @@ export const OptionBar = (
         value={query} />
     </div>
     <div className='rating'>
-      <select
-        onChange={handleChangeRating}
-        value={Number(rating)}>
-        <option value={0} hidden>Select pound rating</option>
-        <option value={1}>1</option>
-        <option value={2}>2</option>
-        <option value={3}>3</option>
-        <option value={4}>4</option>
-        <option value={5}>5</option>
-      </select>
+      <label>
+        <select
+          onChange={handleChangeRating}
+          value={Number(rating)}>
+          <option value={0} hidden>Select pound rating</option>
+          <option value={1}>1</option>
+          <option value={2}>2</option>
+          <option value={3}>3</option>
+          <option value={4}>4</option>
+          <option value={5}>5</option>
+        </select>
+      </label>
     </div>
     <div className='reset-button'>
       <div onClick={handleOnClickReset} className='button'> Reset </div>

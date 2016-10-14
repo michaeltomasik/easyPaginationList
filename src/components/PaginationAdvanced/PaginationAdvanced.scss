@@ -2,7 +2,7 @@
   li a{
     margin: 3px;
     color: #626262;
-    border-color: #666666;
+    border-color: #ccc;
     background: linear-gradient(white, #EAEAEA);
     font-weight: bold;
     border-radius: 5px;
@@ -10,5 +10,9 @@
   .active a {
     color: #EAEAEA;
     background: radial-gradient(#666666, #5b5b5b);
+    border-color: inherit;
+    &:hover {
+
+    }
   }
 }

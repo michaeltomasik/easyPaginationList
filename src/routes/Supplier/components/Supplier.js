@@ -20,7 +20,7 @@ export const Supplier = React.createClass({
     return {
       payments: supplier.payments,
       pagination: supplier.pagination,
-      active: 1,
+      active: 0,
       rating: 0,
       query: '',
       showModal: false,
@@ -43,7 +43,7 @@ export const Supplier = React.createClass({
   },
 
   handlePageChanged: function (newPage) {
-    this.setState({ active : newPage },
+    this.setState({ active : newPage - 1 },
       () => { this.updateTableRows() }
     )
   },
@@ -57,14 +57,14 @@ export const Supplier = React.createClass({
   },
 
   handleOnClickSearch () {
-    this.setState({ active : 1 },
+    this.setState({ active : 0 },
       () => { this.updateTableRows() }
     )
   },
 
   handleOnClickReset () {
     this.setState({
-      active : 1,
+      active : 0,
       query: '',
       rating: 0
     },
@@ -74,7 +74,7 @@ export const Supplier = React.createClass({
 
   updateTableRows () {
     const { active, rating, query } = this.state
-    this.props.getSuppliers(active - 1, rating, query)
+    this.props.getSuppliers(active, rating, query)
   },
 
   closeModal () {
@@ -93,16 +93,24 @@ export const Supplier = React.createClass({
 
     const showPagination = pagination.current === 0 ? null
     : <PaginationAdvanced
-      active={active}
+      active={active + 1}
       handlePageChanged={this.handlePageChanged}
       max={pagination.total} />
 
+    // changing UPPERCASE to 1st Capital letters
+    payments.map((payment) => {
+      payment.payment_supplier = payment.payment_supplier.replace(/[a-zA-z]\.|\w\S*/g,
+        function (txt) {
+          return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+        })
+      return payment
+    })
     return (
-      <div>
-        <p style={{ color:'#337ab7', fontSize: '60px' }}>Where  your money goes</p>
+      <div style={{ width: '100%', margin: '0 auto' }}>
+        <p style={{ color:'#2081BB', fontSize: '70px', fontFamily:'Source Sans Pro Light' }}>Where  your money goes</p>
         <p style={{ fontSize: '20px' }}>Payments made by Chichester District Council to individual
         suppliers with a value over £500 made within October.</p>
-        <hr />
+        <hr style={{ marginBottom:'10px' }} />
         <OptionBar
           query={query}
           rating={rating}

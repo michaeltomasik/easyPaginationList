@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import Rater from 'react-rater'
+import numeral from 'numeral'
 
 import Pound from '../Pound'
 import './Table.scss'
@@ -13,14 +14,16 @@ export const Table = ({ payments, openModal }) => {
         <tr
           key={payment.payment_supplier + index}
           onClick={() => { openModal(payment) }}>
-          <td className='supplier'><p>{payment.payment_supplier}</p></td>
+          <td className='supplier'>
+            <p>{payment.payment_supplier}</p>
+          </td>
           <td className='rate'>
             <Rater interactive={false} rating={Number(payment.payment_cost_rating)}>
               <Pound />
             </Rater>
           </td>
-          <td className='ref'>{payment.payment_ref}</td>
-          <td className='value'>{'£' + payment.payment_amount}</td>
+          <td className='ref-value'>{payment.payment_ref}</td>
+          <td className='ref-value'>{'£' + numeral(payment.payment_amount).format('0,0')}</td>
         </tr>
       )
     })

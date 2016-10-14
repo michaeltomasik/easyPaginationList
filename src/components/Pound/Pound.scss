@@ -2,19 +2,20 @@ $grey-color: #666666;
 
 .react-rater {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 
   div {
     background: linear-gradient(#FAFAFA, #DCDEDE);
-    height: 28px;
-    width: 28px;
+    height: 30px;
+    width: 30px;
     border-radius: 50%;
     border:1px solid $grey-color;
+    margin: 2.5px;
 
     span {
       font-size: 1.4em;
       color: $grey-color;
-      font-weight: bold;
+      font-family: 'Source Sans Pro Bold';
     }
   }
 
