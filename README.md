@@ -24,6 +24,7 @@ If everything works, you should see the following:
 
 <img src="http://i.imgur.com/zR7VRG6.png?2" />
 
+
 ## Based On React Redux Starter Kit
 
 https://github.com/davezuko/react-redux-starter-kit
